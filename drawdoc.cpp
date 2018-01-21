@@ -16,6 +16,7 @@ object_t::concept_t::~concept_t() = default;
 object_t::object_t(const object_t& x) :
 		m_self(x.m_self->copy_())
 {
+	std::cout << "copy\n";
 }
 
 object_t::object_t(object_t&& x) noexcept = default;
