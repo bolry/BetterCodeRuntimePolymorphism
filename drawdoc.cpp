@@ -13,21 +13,6 @@ namespace ewcstl {
 
 object_t::concept_t::~concept_t() = default;
 
-object_t::object_t(const object_t& x) :
-		m_self(x.m_self->copy_())
-{
-	std::cout << "copy\n";
-}
-
-object_t::object_t(object_t&& x) noexcept = default;
-
-object_t& object_t::operator=(object_t const& x)
-{
-	return *this = object_t(x);
-}
-
-object_t& object_t::operator=(object_t&&) noexcept = default;
-
 void draw(object_t const& x, std::ostream& out, std::size_t position)
 {
 	x.m_self->draw_(out, position);
