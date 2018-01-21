@@ -16,19 +16,24 @@
 using namespace SaabAB;
 using namespace ewcstl;
 
+struct some_t {
+	object_t m_member;
+};
+
+some_t func()
+{
+	return { 5 };
+}
+
 int main()
 {
-	document_t document;
-	document.reserve(5);
+	//
+	// Quiz: What will this print?
+	//
 
-	document.emplace_back(0);
-	document.emplace_back(1);
-	document.emplace_back(2);
-	document.emplace_back(3);
+	some_t x = { 0 };
 
-	reverse(begin(document), end(document));
-
-	draw(document, std::cout, 0);
+	x = func();
 }
 
 // ----------------------------- END-OF-FILE ----------------------------------
