@@ -29,13 +29,11 @@ void object_t::int_model_t::draw_(std::ostream& out, std::size_t position) const
 object_t::object_t(int const& x) :
 		m_self(std::make_unique<int_model_t>(x))
 {
-	std::cout << "ctor\n";
 }
 
 object_t::object_t(const object_t& x) :
 		m_self(std::make_unique<int_model_t>(*x.m_self))
 {
-	std::cout << "copy\n";
 }
 
 object_t::object_t(object_t&& x) noexcept = default;
