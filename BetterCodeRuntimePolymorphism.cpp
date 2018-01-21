@@ -1,9 +1,4 @@
 // Copyright © 2018
-#ifndef INCLUDED_ALGORITHM
-#define INCLUDED_ALGORITHM
-#include <algorithm>
-#endif
-
 #ifndef INCLUDED_IOSTREAM
 #define INCLUDED_IOSTREAM
 #include <iostream>
@@ -16,24 +11,16 @@
 using namespace SaabAB;
 using namespace ewcstl;
 
-struct some_t {
-	object_t m_member;
-};
-
-some_t func()
-{
-	return { 5 };
-}
-
 int main()
 {
-	//
-	// Quiz: What will this print?
-	//
+	document_t document;
 
-	some_t x = { 0 };
+	document.emplace_back(0);
+	document.emplace_back(std::string("Hello"));
+	document.emplace_back(2);
+	document.emplace_back(3);
 
-	x = func();
+	draw(document, std::cout, 0);
 }
 
 // ----------------------------- END-OF-FILE ----------------------------------

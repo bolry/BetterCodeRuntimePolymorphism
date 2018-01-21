@@ -20,16 +20,33 @@
 namespace SaabAB {
 namespace ewcstl {
 
+void draw(std::string const& x, std::ostream& out, std::size_t position);
 void draw(int const& x, std::ostream& out, std::size_t position);
 
 class object_t {
-	struct int_model_t {
+	struct concept_t {
+		virtual ~concept_t();
+		virtual std::unique_ptr<concept_t> copy_() const = 0;
+		virtual void draw_(std::ostream& out,
+		                std::size_t position) const = 0;
+	};
+	struct string_model_t final : concept_t {
+		std::string m_data;
+		string_model_t(std::string x);
+		std::unique_ptr<concept_t> copy_() const override;
+		void draw_(std::ostream& out, std::size_t position) const
+		                override;
+	};
+	struct int_model_t final : concept_t {
 		int m_data;
 		int_model_t(int x);
-		void draw_(std::ostream& out, std::size_t position) const;
+		std::unique_ptr<concept_t> copy_() const override;
+		void draw_(std::ostream& out, std::size_t position) const
+		                override;
 	};
-	std::unique_ptr<int_model_t> m_self;
+	std::unique_ptr<concept_t> m_self;
 public:
+	object_t(std::string x);
 	object_t(int x);
 	object_t(object_t const& x);
 	object_t(object_t && x) noexcept;
