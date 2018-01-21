@@ -12,23 +12,14 @@
 #include <iosfwd>
 #endif
 
-#ifndef INCLUDED_MEMORY
-#define INCLUDED_MEMORY
-#include <memory>
-#endif
-
 namespace SaabAB {
 namespace ewcstl {
 
-class object_t {
-public:
-	virtual ~object_t();
-	virtual void draw(std::ostream& out, std::size_t) const = 0;
-};
+using object_t = int;
 
 void draw(object_t const& x, std::ostream& out, std::size_t position);
 
-using document_t = std::vector<std::shared_ptr<object_t>>;
+using document_t = std::vector<object_t>;
 
 void draw(document_t const& x, std::ostream& out, std::size_t position);
 
