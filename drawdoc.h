@@ -12,14 +12,20 @@
 #include <iosfwd>
 #endif
 
+#include <memory>
+
 namespace SaabAB {
 namespace ewcstl {
 
-using object_t = int;
+class object_t {
+public:
+	virtual ~object_t();
+	virtual void draw(std::ostream& out, std::size_t) const = 0;
+};
 
 void draw(object_t const& x, std::ostream& out, std::size_t position);
 
-using document_t = std::vector<object_t>;
+using document_t = std::vector<std::shared_ptr<object_t>>;
 
 void draw(document_t const& x, std::ostream& out, std::size_t position);
 
