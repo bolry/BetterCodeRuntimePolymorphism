@@ -1,7 +1,22 @@
 // Copyright © 2018
+#ifndef INCLUDED_CHRONO
+#define INCLUDED_CHRONO
+#include <chrono>
+#endif
+
+#ifndef INCLUDED_FUTURE
+#define INCLUDED_FUTURE
+#include <future>
+#endif
+
 #ifndef INCLUDED_IOSTREAM
 #define INCLUDED_IOSTREAM
 #include <iostream>
+#endif
+
+#ifndef INCLUDED_THREAD
+#define INCLUDED_THREAD
+#include <thread>
 #endif
 
 #ifndef INCLUDED_DRAWDOC
@@ -29,6 +44,13 @@ int main()
 	commit(h);
 
 	current(h)[0] = 42.5;
+
+	auto saving = std::async([document = current(h)]() {
+		std::this_thread::sleep_for(std::chrono::seconds(3));
+		std::cout << "---------- 'save' ----------\n";
+		draw(document, std::cout, 1);
+	});
+
 	current(h)[1] = std::string("World");
 	current(h).emplace_back(current(h));
 	current(h).emplace_back(my_class_t());
@@ -39,6 +61,8 @@ int main()
 	undo(h);
 
 	draw(current(h), std::cout, 0);
+
+	saving.get();
 }
 
 // ----------------------------------------------------------------------------
