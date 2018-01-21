@@ -38,10 +38,9 @@ object_t::object_t(const object_t& x) :
 	std::cout << "copy\n";
 }
 
-object_t& object_t::operator=(object_t const& x)
+object_t& object_t::operator=(object_t x) noexcept
 {
-	object_t tmp(x);
-	m_self = std::move(tmp.m_self);
+	m_self = std::move(x.m_self);
 	return *this;
 }
 
