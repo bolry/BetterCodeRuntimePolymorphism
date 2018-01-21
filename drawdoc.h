@@ -25,12 +25,12 @@ void draw(int const& x, std::ostream& out, std::size_t position);
 class object_t {
 	struct int_model_t {
 		int m_data;
-		int_model_t(int const& x);
+		int_model_t(int x);
 		void draw_(std::ostream& out, std::size_t position) const;
 	};
 	std::unique_ptr<int_model_t> m_self;
 public:
-	object_t(int const& x);
+	object_t(int x);
 	object_t(object_t const& x);
 	object_t(object_t && x) noexcept;
 	object_t& operator=(object_t const& x);
