@@ -3,6 +3,11 @@
 #include "drawdoc.h"
 #endif
 
+#ifndef INCLUDED_CASSERT
+#define INCLUDED_CASSERT
+#include <cassert>
+#endif
+
 namespace SaabAB {
 namespace ewcstl {
 
@@ -34,6 +39,24 @@ void draw(document_t const& x, std::ostream& out, std::size_t position)
 		draw(e, out, position + 3);
 	}
 	out << std::string(position, ' ') << "</document>\n";
+}
+
+void commit(history_t& x)
+{
+	assert(!x.empty());
+	x.push_back(x.back());
+}
+
+void undo(history_t& x)
+{
+	assert(!x.empty());
+	x.pop_back();
+}
+
+document_t& current(history_t& x)
+{
+	assert(!x.empty());
+	return x.back();
 }
 
 }  // close package namespace

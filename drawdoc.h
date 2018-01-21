@@ -55,6 +55,12 @@ using document_t = std::vector<object_t>;
 
 void draw(document_t const& x, std::ostream& out, std::size_t position);
 
+using history_t = std::vector<document_t>;
+
+void commit(history_t& x);
+void undo(history_t& x);
+document_t& current(history_t& x);
+
 }  // close package namespace
 }  // close enterprise namespace
 
@@ -70,7 +76,8 @@ void draw(T const& x, std::ostream& out, std::size_t position)
 }
 
 template<typename T>
-object_t::object_t(T x) : m_self(std::make_unique<model<T>>(std::move(x)))
+object_t::object_t(T x) :
+		m_self(std::make_unique<model<T>>(std::move(x)))
 {
 }
 
@@ -87,8 +94,7 @@ std::unique_ptr<object_t::concept_t> object_t::model<T>::copy_() const
 }
 
 template<typename T>
-void object_t::model<T>::draw_(std::ostream& out,
-                std::size_t position) const
+void object_t::model<T>::draw_(std::ostream& out, std::size_t position) const
 {
 	draw(m_data, out, position);
 }
