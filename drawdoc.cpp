@@ -11,16 +11,26 @@
 namespace SaabAB {
 namespace ewcstl {
 
-void draw(const object_t& x, std::ostream& out, std::size_t position)
+void draw(int const& x, std::ostream& out, std::size_t position)
 {
 	out << std::string(position, ' ') << x << '\n';
 }
 
- void draw(const document_t& x, std::ostream& out, std::size_t position)
+object_t::object_t(int const& x) :
+		m_self(x)
+{
+}
+
+void draw(object_t const& x, std::ostream& out, std::size_t position)
+{
+	draw(x.m_self, out, position);
+}
+
+void draw(document_t const& x, std::ostream& out, std::size_t position)
 {
 	out << std::string(position, ' ') << "<document>\n";
 	for (auto const& e : x) {
-		draw(e, out, position + 2);
+		draw(e, out, position + 3);
 	}
 	out << std::string(position, ' ') << "</document>\n";
 }

@@ -15,9 +15,16 @@
 namespace SaabAB {
 namespace ewcstl {
 
-using object_t = int;
+void draw(int const& x, std::ostream& out, std::size_t position);
 
-void draw(object_t const& x, std::ostream& out, std::size_t position);
+class object_t {
+	int m_self;
+public:
+	object_t(int const& x);
+
+	friend void draw(object_t const& x, std::ostream& out,
+	                std::size_t position);
+};
 
 using document_t = std::vector<object_t>;
 
