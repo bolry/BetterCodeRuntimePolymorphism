@@ -42,9 +42,7 @@ object_t::object_t(object_t&& x) noexcept = default;
 
 object_t& object_t::operator=(object_t const& x)
 {
-	object_t tmp(x);
-	*this = std::move(tmp);
-	return *this;
+	return *this = object_t(x);
 }
 
 object_t& object_t::operator=(object_t&&) noexcept = default;
