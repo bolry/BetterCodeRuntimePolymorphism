@@ -2,14 +2,19 @@
 #ifndef INCLUDED_DRAWDOC
 #define INCLUDED_DRAWDOC
 
-#ifndef INCLUDED_VECTOR
-#define INCLUDED_VECTOR
-#include <vector>
-#endif
-
 #ifndef INCLUDED_IOSFWD
 #define INCLUDED_IOSFWD
 #include <iosfwd>
+#endif
+
+#ifndef INCLUDED_MEMORY
+#define INCLUDED_MEMORY
+#include <memory>
+#endif
+
+#ifndef INCLUDED_VECTOR
+#define INCLUDED_VECTOR
+#include <vector>
 #endif
 
 namespace SaabAB {
@@ -18,7 +23,12 @@ namespace ewcstl {
 void draw(int const& x, std::ostream& out, std::size_t position);
 
 class object_t {
-	int m_self;
+	struct int_model_t {
+		int m_data;
+		int_model_t(int const& x);
+		void draw_(std::ostream& out, std::size_t position) const;
+	};
+	std::unique_ptr<int_model_t> m_self;
 public:
 	object_t(int const& x);
 

@@ -15,15 +15,24 @@ void draw(int const& x, std::ostream& out, std::size_t position)
 {
 	out << std::string(position, ' ') << x << '\n';
 }
+object_t::int_model_t::int_model_t(const int& x) :
+		m_data(x)
+{
+}
+
+void object_t::int_model_t::draw_(std::ostream& out, std::size_t position) const
+{
+	draw(m_data, out, position);
+}
 
 object_t::object_t(int const& x) :
-		m_self(x)
+		m_self(std::make_unique<int_model_t>(x))
 {
 }
 
 void draw(object_t const& x, std::ostream& out, std::size_t position)
 {
-	draw(x.m_self, out, position);
+	x.m_self->draw_(out, position);
 }
 
 void draw(document_t const& x, std::ostream& out, std::size_t position)
