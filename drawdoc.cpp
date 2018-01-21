@@ -38,6 +38,11 @@ object_t::object_t(const object_t& x) :
 	std::cout << "copy\n";
 }
 
+object_t::object_t(object_t&& x) noexcept :
+		m_self(std::move(x.m_self))
+{
+}
+
 object_t& object_t::operator=(object_t x) noexcept
 {
 	m_self = std::move(x.m_self);
