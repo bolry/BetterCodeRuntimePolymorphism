@@ -23,7 +23,9 @@ int main()
 	// Quiz: What will this print?
 	//
 
-	object_t x = func();
+	object_t x = 0;
+
+	x = func();
 }
 
 // ----------------------------- END-OF-FILE ----------------------------------
