@@ -2,9 +2,9 @@
 #ifndef INCLUDED_DRAWDOC
 #define INCLUDED_DRAWDOC
 
-#ifndef INCLUDED_IOSFWD
-#define INCLUDED_IOSFWD
-#include <iosfwd>
+#ifndef INCLUDED_IOSTREAM
+#define INCLUDED_IOSTREAM
+#include <iostream>
 #endif
 
 #ifndef INCLUDED_MEMORY
@@ -20,8 +20,8 @@
 namespace SaabAB {
 namespace ewcstl {
 
-void draw(std::string const& x, std::ostream& out, std::size_t position);
-void draw(int const& x, std::ostream& out, std::size_t position);
+template<typename T>
+void draw(T const& x, std::ostream& out, std::size_t position);
 
 class object_t {
 	struct concept_t {
@@ -30,24 +30,18 @@ class object_t {
 		virtual void draw_(std::ostream& out,
 		                std::size_t position) const = 0;
 	};
-	struct string_model_t final : concept_t {
-		std::string m_data;
-		string_model_t(std::string x);
-		std::unique_ptr<concept_t> copy_() const override;
-		void draw_(std::ostream& out, std::size_t position) const
-		                override;
-	};
-	struct int_model_t final : concept_t {
-		int m_data;
-		int_model_t(int x);
+	template<typename T>
+	struct model final : concept_t {
+		T m_data;
+		model(T x);
 		std::unique_ptr<concept_t> copy_() const override;
 		void draw_(std::ostream& out, std::size_t position) const
 		                override;
 	};
 	std::unique_ptr<concept_t> m_self;
 public:
-	object_t(std::string x);
-	object_t(int x);
+	template<typename T>
+	object_t(T x);
 	object_t(object_t const& x);
 	object_t(object_t && x) noexcept;
 	object_t& operator=(object_t const& x);
@@ -60,6 +54,44 @@ public:
 using document_t = std::vector<object_t>;
 
 void draw(document_t const& x, std::ostream& out, std::size_t position);
+
+}  // close package namespace
+}  // close enterprise namespace
+
+// ----------------------------------------------------------------------------
+
+namespace SaabAB {
+namespace ewcstl {
+
+template<typename T>
+void draw(T const& x, std::ostream& out, std::size_t position)
+{
+	out << std::string(position, ' ') << x << '\n';
+}
+
+template<typename T>
+object_t::object_t(T x) : m_self(std::make_unique<model<T>>(std::move(x)))
+{
+}
+
+template<typename T>
+object_t::model<T>::model(T x) :
+		m_data(std::move(x))
+{
+}
+
+template<typename T>
+std::unique_ptr<object_t::concept_t> object_t::model<T>::copy_() const
+{
+	return std::make_unique<model<T>>(*this);
+}
+
+template<typename T>
+void object_t::model<T>::draw_(std::ostream& out,
+                std::size_t position) const
+{
+	draw(m_data, out, position);
+}
 
 }  // close package namespace
 }  // close enterprise namespace
