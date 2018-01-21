@@ -15,6 +15,7 @@ void draw(int const& x, std::ostream& out, std::size_t position)
 {
 	out << std::string(position, ' ') << x << '\n';
 }
+
 object_t::int_model_t::int_model_t(const int& x) :
 		m_data(x)
 {
@@ -27,6 +28,11 @@ void object_t::int_model_t::draw_(std::ostream& out, std::size_t position) const
 
 object_t::object_t(int const& x) :
 		m_self(std::make_unique<int_model_t>(x))
+{
+}
+
+object_t::object_t(const object_t& x) :
+		m_self(std::make_unique<int_model_t>(*x.m_self))
 {
 }
 
