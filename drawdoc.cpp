@@ -40,11 +40,14 @@ object_t::object_t(const object_t& x) :
 
 object_t::object_t(object_t&& x) noexcept = default;
 
-object_t& object_t::operator=(object_t x) noexcept
+object_t& object_t::operator=(object_t const& x)
 {
-	m_self = std::move(x.m_self);
+	object_t tmp(x);
+	*this = std::move(tmp);
 	return *this;
 }
+
+object_t& object_t::operator=(object_t&&) noexcept = default;
 
 void draw(object_t const& x, std::ostream& out, std::size_t position)
 {
