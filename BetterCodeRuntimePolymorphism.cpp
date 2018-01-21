@@ -11,16 +11,19 @@
 using namespace SaabAB;
 using namespace ewcstl;
 
+object_t func()
+{
+	object_t result = 5;
+	return result;
+}
+
 int main()
 {
-	document_t document;
+	//
+	// Quiz: What will this print?
+	//
 
-	document.emplace_back(0);
-	document.emplace_back(1);
-	document.emplace_back(2);
-	document.emplace_back(3);
-
-	draw(document, std::cout, 0);
+	object_t x = func();
 }
 
 // ----------------------------- END-OF-FILE ----------------------------------
