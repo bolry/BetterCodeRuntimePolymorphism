@@ -12,7 +12,10 @@
 #include <iosfwd>
 #endif
 
+#ifndef INCLUDED_MEMORY
+#define INCLUDED_MEMORY
 #include <memory>
+#endif
 
 namespace SaabAB {
 namespace ewcstl {
