@@ -36,6 +36,13 @@ object_t::object_t(const object_t& x) :
 {
 }
 
+object_t& object_t::operator=(object_t const& x)
+{
+	object_t tmp(x);
+	m_self = std::move(tmp.m_self);
+	return *this;
+}
+
 void draw(object_t const& x, std::ostream& out, std::size_t position)
 {
 	x.m_self->draw_(out, position);

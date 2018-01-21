@@ -32,6 +32,7 @@ class object_t {
 public:
 	object_t(int const& x);
 	object_t(object_t const& x);
+	object_t& operator=(object_t const& x);
 
 	friend void draw(object_t const& x, std::ostream& out,
 	                std::size_t position);
